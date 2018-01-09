@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>测试获取iframe内容</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bdgg-wrap">
+    <script class="J-bdgg-script" src="https://tt123.eastday.com/e3ds8gnt21.js"></script>
+    <script class="J-bdgg-script" src="https://tt123.eastday.com/ywd71i4oas.js"></script>
+  </div>
+
+  <p>
+    <button id="J_btn">点我刷新iframe</button>
+  </p>
+
+  <div class="custom-gg-wrap">
+    <!-- <iframe src="./customgg.html" frameborder="0"></iframe> -->
+  </div>
+
+  <script>
+    /**
+     * 监听百度广告iframe load事件，一定时间没有执行load事件，就认为是广告未加载，重新loadiframe。
+     */
+    (function () {
+      var $bdGgWrap = $('.bdgg-wrap');  // *百度广告容器（广告iframe父级DOM）
+      var TIME = 3000;  // *监听时间设置（单位：ms），默认5000ms
+      var $ifr = null;
+      var ifTimer = null;
+      try {
+        ifTimer = setInterval(function () {
+          $ifr = $bdGgWrap.find('iframe')
+          if ($ifr.length > 0) {
+            clearInterval(ifTimer);
+            $ifr.each(function (index, ifr) {
+              console.log(index, ifr)
+              loadIframe(ifr);
+            });
+          }
+        }, 100)
+
+        function loadIframe(ifr) {
+          var ifrLoadTimer = setTimeout(function () {
+            ifr.setAttribute('src', ifr.getAttribute('src'));
+          }, TIME || 5000);
+          ifr.addEventListener('load', function () {
+            clearTimeout(ifrLoadTimer);
+            console.warn('iframe loaded!!!')
+          });
+        }
+      } catch (e) {
+        clearInterval(ifTimer);
+        console.error('【CUSTOM】iframe load has error!', e)
+      }
+
+      $('#J_btn').on('click', function () {
+        console.log($ifr)
+        var $ifr = $('.bdgg-wrap').find('iframe');
+        $ifr.each(function (index, ifr) {
+          ifr.setAttribute('src', ifr.getAttribute('src'));
+        })
+      })
+    }());
+    // (function () {
+    //   var ifr = $('.custom-gg-wrap').find('iframe')[0];
+    //   var ifrLoadTimer = setTimeout(function () {
+    //     ifr.setAttribute('src', ifr.getAttribute('src'));
+    //   }, 5000);
+    //   ifr.addEventListener('load', function () {
+    //     console.log('ifr loaded!!!')
+    //     clearTimeout(ifrLoadTimer)
+    //   });
+    // }());
+  </script>
+</body>
+
+</html>
