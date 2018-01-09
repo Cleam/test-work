@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>测试获取iframe内容</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="bdgg-wrap">
+    <script class="J-bdgg-script" src="//tt123.eastday.com/usd83qdyl1.js"></script>
+  </div>
+
+  <div class="custom-gg-wrap">
+    <iframe src="./customgg.html" frameborder="0"></iframe>
+  </div>
+
+  <script>
+    (function () {
+      // var hasIframe = false;
+      // while ($('.bdgg-wrap').find('iframe').length === 0) {
+
+      // }
+
+      var ifTimer = setInterval(function () {
+        // console.log('interval...')
+        if ($('.bdgg-wrap').find('iframe').length > 0) {
+          clearInterval(ifTimer)
+          var ifr = $('.bdgg-wrap').find('iframe')[0];
+          ifr.addEventListener('load', function () {
+
+
+            // console.log('ifr loaded!!!')
+            // var ifrDoc = ifr.contentDocument;
+            // console.log('bdgg iframe document: ', ifr.document);
+            // console.log('bdgg iframe: ', ifrDoc);
+            // console.log('百度广告DOM内容：', ifrDoc.getElementsByTagName("body"))
+            // alert('跨域获取iframe中DOM内容：' + ifrDoc.getElementsByTagName("body")[0].innerHTML)
+            // console.log('跨域获取iframe中DOM内容：', ifrDoc.getElementsByTagName("body")[0].innerHTML)
+          });
+        }
+      }, 100)
+    }());
+    // (function () {
+    //   var ifr = $('.custom-gg-wrap').find('iframe')[0];
+    //   ifr.addEventListener('load', function () {
+    //     // console.log('ifr loaded!!!')
+    //     var ifrDoc = ifr.contentDocument;
+    //     alert('非跨域获取iframe中DOM内容：' + ifrDoc.getElementsByTagName("body")[0].innerHTML)
+    //     console.log('非跨域获取iframe中DOM内容：', ifrDoc.getElementsByTagName("body")[0].innerHTML)
+    //   });
+    // }());
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,358 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8">
+  <title>自定义广告</title>
+  <meta http-equiv="Content-Type" content="text/html">
+
+  <style type="text/css">
+    html {
+      color: #000;
+      background-color: transparent;
+    }
+
+    body,
+    div,
+    dl,
+    dt,
+    dd,
+    ul,
+    ol,
+    li,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    pre,
+    code,
+    form,
+    fieldset,
+    legend,
+    input,
+    textarea,
+    p,
+    blockquote,
+    th,
+    td {
+      margin: 0;
+      padding: 0
+    }
+
+    table {
+      border-collapse: collapse;
+      border-spacing: 0
+    }
+
+    fieldset,
+    img {
+      border: 0
+    }
+
+    address,
+    caption,
+    cite,
+    code,
+    dfn,
+    em,
+    strong,
+    th,
+    var {
+      font-style: normal;
+      font-weight: normal
+    }
+
+    ol,
+    ul {
+      list-style: none
+    }
+
+    caption,
+    th {
+      text-align: left
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-size: 100%;
+      font-weight: normal
+    }
+
+    q:before,
+    q:after {
+      content: ''
+    }
+
+    abbr,
+    acronym {
+      border: 0;
+      font-variant: normal
+    }
+
+    sup {
+      vertical-align: text-top
+    }
+
+    sub {
+      vertical-align: text-bottom
+    }
+
+    input,
+    textarea,
+    select {
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit
+    }
+
+    input,
+    textarea,
+    select {
+      *font-size: 100%
+    }
+
+    legend {
+      color: #000
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .bd-logo,
+    .bd-logo2,
+    .bd-logo3,
+    .bd-logo4 {
+      text-decoration: none;
+      cursor: pointer;
+      display: block;
+      overflow: hidden;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      z-index: 2147483647
+    }
+
+    .bd-logo {
+      height: 18px;
+      width: 18px;
+      background: url(//cpro2.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bg.png) no-repeat left top;
+      background-position: 0 0;
+      _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src="//cpro2.baidustatic.com/cpro/ui/noexpire/img/2.0.1/logo-border-light.png", sizingMethod="crop");
+      _background: 0
+    }
+
+    .bd-logo:hover {
+      background-position: -70px 0;
+      _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src="//cpro2.baidustatic.com/cpro/ui/noexpire/img/2.0.1/logo-border-dark.png", sizingMethod="crop")
+    }
+
+    .bd-logo2 {
+      margin: 0 2px 2px 0;
+      height: 14px;
+      width: 13px;
+      background: url(//cpro2.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bg.png) no-repeat left top;
+      background-position: 0 -20px;
+      _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src="//cpro2.baidustatic.com/cpro/ui/noexpire/img/2.0.1/logo-noborder-light.png", sizingMethod="crop");
+      _background: 0
+    }
+
+    .bd-logo2:hover {
+      background-position: 0 -35px;
+      _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src="//cpro2.baidustatic.com/cpro/ui/noexpire/img/2.0.1/logo-noborder-dark.png", sizingMethod="crop")
+    }
+
+    .bd-logo3 {
+      height: 18px;
+      width: 18px;
+      background: url(//cpro2.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bg.png) no-repeat left top;
+      background-position: -70px 0;
+      _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src="//cpro2.baidustatic.com/cpro/ui/noexpire/img/2.0.1/logo-border-dark.png", sizingMethod="crop");
+      _background: 0
+    }
+
+    .bd-logo3:hover {
+      width: 68px
+    }
+
+    .bd-logo4 {
+      height: 18px;
+      width: 18px;
+      bottom: 0;
+      left: 0;
+      background: url(//cpro2.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bd-logo4.png) no-repeat left top;
+      background-position: center;
+      background-size: 100%, 100%;
+      _filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, src="//cpro2.baidustatic.com/cpro/ui/noexpire/img/2.0.1/bd-logo4.png", sizingMethod="crop");
+      _background: 0
+    }
+
+    .loader {
+      text-align: center;
+      width: 90%;
+      font-size: 12px;
+      padding: 8px;
+      border: solid 1px #aaaaaa;
+      margin-top: 30px;
+      display: none;
+    }
+
+    .cf:before,
+    .cf:after {
+      content: "\20";
+      display: table;
+    }
+
+    .cf:after {
+      clear: both;
+    }
+
+    .cf {
+      *zoom: 1;
+    }
+
+    .textOverflow {
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      width: 100%;
+    }
+
+    .textOverflowEllipsis {
+      -o-text-overflow: ellipsis;
+      text-overflow: ellipsis;
+    }
+
+    .textOverflowClip {
+      -o-text-overflow: clip;
+      text-overflow: clip;
+    }
+
+    .container {
+      display: block !important
+    }
+  </style>
+  <style type="text/css">
+    .container {
+      background-color: white;
+      overflow: hidden;
+      display: block;
+      font-family: Microsoft YaHei;
+      margin: 0;
+      padding: 0
+    }
+
+    .pic_container {
+      display: block;
+      float: left;
+      overflow: hidden
+    }
+
+    .pic_row {
+      display: block;
+      overflow: hidden;
+      float: left
+    }
+
+    .pic_item {
+      display: block;
+      overflow: hidden;
+      float: left;
+      text-align: center
+    }
+
+    .pic {
+      display: block;
+      float: left;
+      overflow: hidden
+    }
+
+    .pic_title {
+      display: block;
+      overflow: hidden;
+      float: left;
+      text-align: center;
+      text-decoration: none
+    }
+
+    .pic_title_ptp {
+      position: relative;
+      overflow: hidden;
+      display: block;
+      text-decoration: none;
+      text-align: center;
+      float: left
+    }
+
+    .link {
+      text-decoration: none
+    }
+
+    img.hover {
+      -webkit-transition: -webkit-transform .5s ease-in;
+      -moz-transition: -moz-transform .5s ease-in;
+      -ms-transition: -ms-transform .5s ease-in;
+      -o-transition: -o-transform .5s ease-in;
+      transition: transform .5s ease-in;
+      -webkit-transform: scale(1.2);
+      -moz-transform: scale(1.2);
+      -ms-transform: scale(1.2);
+      -o-transform: scale(1.2);
+      transform: scale(1.2)
+    }
+  </style>
+</head>
+
+<body>
+  <!--sid=c51d196f7ac43447-->
+  <div style="display:none;">
+    <img src="http://cm.pos.baidu.com/pixel?dspid=7826902" height="1px" width="1px" alt="">
+  </div>
+  <div style="display:none;">
+    <img src="http://wn.pos.baidu.com/adx.php?c=d25pZD02ZjE5MWRjNTQ3MzRjNDdhAHM9NmYxOTFkYzU0NzM0YzQ3YQB0PTE1MTU0MDU4NDEAc2U9MQBidT00AHByaWNlPVdsTkNFUUFKWld4N2pFcGdXNUlBOHFnUWg1QUptUU9ZS0dhWndBAGNoYXJnZV9wcmljZT0yOABzaGFyaW5nX3ByaWNlPTI4MDAwAHdpbl9kc3A9NABjaG1kPTEAYmRpZD01NTk2QkQ2QTk2OTRBNjY5MUVFQzI0OTFCRjI0Q0VDNABjcHJvaWQ9NTU5NkJENkE5Njk0QTY2OTFFRUMyNDkxQkYyNENFQzQAd2Q9MABwb3M9MABiY2htZD0wAHY9MQBpPTZmZGQ3NTJh"
+      height="1px" width="1px" alt="">
+  </div>
+  <!-- main -->
+  <!--div class="container" id="container">
+    </div-->
+  <div class="container" id="container" style="background-color:#FFFFFF;height:135px;width:360px;">
+    <!--a class="bd-logo4" href="http://wangmeng.baidu.com" title="百度网盟推广" target="_blank" onfocus="this.blur()"></a-->
+    <div class="pic_container" id="pic_container" style="height:125px;width:328px;margin-left:16px;margin-right:16px;margin-top:10px;margin-bottom:0px;position:relative;background:#FFFFFF;">
+      <div style="height:21px;width:328px;font-weight:normal;font-size:17px;color:#000000;line-height:21px;overflow:hidden;margin-bottom:0px;"
+        id="pic_title_0">自定义广告...</div>
+      <div class="pic_row" id="pic_row_0" style="float: left; height: 75.6923px; width: 328px; display: flex;" onclick="window.open('https://cpro.baidu.com/cpro/ui/uijs.php?en=mywWUA71T1YsFh7sT7qGujYsFhPC5H0huAbqrauGTdq9TZ0qnauJp1YLmynYn1fYPvndnyfkrHuhFh_qFRfsFRnYFRnsFRNDFRfLFRn4FRfkFR7AFRfLFRD3FRFjFRfzFh_s5iNDnaNjPaNjnaN7waNDPzNjriNDniNKwBNDPzNKraNafzNDnBuonHY-wjf-wDD-fYm-wDm-fbR-fRc-f1b-wWD-fWc-fHD-wjT-f1b-wjD-fRmhp1cqFRF7FR7aFRn4FRmkFRczFRDkFRfLFRD3FRFjFRfzFRfLFRn4FRfkFR7AFh_15iNawiNKfBNjriNAniNanBNKniNDPaNDfiNjwBNDwBNDPzNjriNDniNKwBuoPjY-fbR-fRc-f1b-wWD-fWc-fHD-wjT-f1b-wjD-fRmhp1RqFRnYFRnLFRnsFRNAFRfsFRnYFRnsFRNDFRfLFRn4FRfkFR7AFRPKFRDvFhkdpvbqniuVmLKV5HDsPj6LPauk5yF9pywdTv-YuyNzThqzgvPsTBuzmWYsFMF15HDhTvN_UANzgv-b5HDhTv-b5HuhnHbkuAndPjT1PAnYPvDhTLwGujYYnj01FMfqIZKWUA-WpvNbndqVUvFxmgPsg1RhIAfqnWb4rjmdnBuYUgnqnHRkPHfsPH6YniuYIHddnWb4rjmdnBud5y9YIZ0-nYD-nbm-nbmkP1c-nbRkraRzwHb-nbR3riR1fHRdnj0hIWYkFhbqryRzP163ujD&amp;c=news&amp;cf=1&amp;cp=fc_middle_page_wap&amp;ds=fmp&amp;eid_list=3000&amp;expid=9177_9515_9520_9554&amp;fv=0&amp;itm=0&amp;k_words=%D4%DA%CF%DF%BE%AB%C9%F1%B2%A1%D7%C9%D1%AF%5F%BE%AB%C9%F1%B2%A1%D7%A8%BC%D2%D7%C9%D1%AF%5F%BE%AB%C9%F1%B2%A1%D4%DA%CF%DF%D7%C9%D1%AF%5F%BE%AB%C9%F1%B2%A1%D7%C9%D1%AF%5F%C4%C7%C0%EF%D0%C4%C0%ED%D7%C9%D1%AF%CA%A6&amp;kdi0=8&amp;kdi1=8&amp;kdi2=8&amp;kdi3=8&amp;kdi4=8&amp;kdi5=8&amp;lukid=1&amp;mscf=600&amp;n=10&amp;nttp=2&amp;p=baidu&amp;sh=640&amp;ssp2=2&amp;sw=360&amp;swi=1&amp;tsf=dtp:2&amp;u=%2F06%5Fget%5Fiframe%5Fcontent%2Findex%2Ehtml&amp;urlid=0');">
+        <div class="pic_item" id="pic_item_0_0" style="margin-right: 3px; height: 75.6923px; width: 98.4px; flex: 1 1 0%;">
+          <div class="pic" id="pic_0_0" style="height:75.69230769230768px;width:100%;">
+            <a>
+              <img src="http://f11.baidu.com/it/u=1090813864,162317000&amp;fm=76" style="height:75.69230769230768px;width:100%;" id="img_0_0">
+            </a>
+          </div>
+        </div>
+        <div class="pic_item" id="pic_item_0_1" style="margin-right: 3px; height: 75.6923px; width: 98.4px; flex: 1 1 0%;">
+          <div class="pic" id="pic_0_1" style="height:75.69230769230768px;width:100%;">
+            <a>
+              <img src="http://f10.baidu.com/it/u=467408109,3574161668&amp;fm=76" style="height:75.69230769230768px;width:100%;" id="img_0_1">
+            </a>
+          </div>
+        </div>
+        <div class="pic_item" id="pic_item_0_2" style="height: 75.6923px; width: 98.4px; flex: 1 1 0%;">
+          <div class="pic" id="pic_0_2" style="height:75.69230769230768px;width:100%;">
+            <a>
+              <img src="http://f12.baidu.com/it/u=1510964438,1523051537&amp;fm=76" style="height:75.69230769230768px;width:100%;" id="img_0_2">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div id="bdNewLogo" style="position: absolute; display: block; z-index: 2147483647; background: url(&quot;//t11.baidu.com/it/u=3019648105,3534839214&amp;fm=76&quot;) 0% 0% / 30px 16px; right: 0px; bottom: 10px; left: 1px; height: 16px; width: 30px;"></div>
+    </div>
+  </div>
+
+</body>
+
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>iframe容器页面</title>
+  <style>
+    body {
+      background-color: #ff0;
+    }
+  </style>
+</head>
+
+<body>
+  <p>iframe容器页面</p>
+  <p>投放url：
+    <span id="J_tfurl"></span>
+  </p>
+  <p>referrer url：
+    <span id="J_referrerurl"></span>
+  </p>
+  <p>当前url：
+    <span id="J_currenturl"></span>
+  </p>
+  <hr>
+  <iframe src="//09img.shaqm.com/h5/test/iframe/t1.html" frameborder="0" scrolling="no" width="800" height="400"></iframe>
+  <script>
+    function $$(id) {
+      return document.getElementById(id)
+    }
+    // try {
+    //   if (top !== window) {
+    //     $$('J_tfurl').innerHTML = top.location.href
+    //   }
+    // } catch (error) {
+    //   console.error(error)
+    // }
+    function getTopUrl() {
+      var o = null;
+      try {
+        // $$('J_tfurl').innerHTML = window.document.referrer || window.document.location
+        o = window.document.referrer || window.document.location
+      } catch (j) {
+        var i = null;
+        try {
+          i = window.top.location.href
+        } catch (k) {
+          i = o
+        }
+        var n = document.location;
+        if (n != i) {
+          o = n
+        } else {
+          o = i
+        }
+        return o
+      }
+    }
+    $$('J_tfurl').innerHTML = getTopUrl()
+    $$('J_referrerurl').innerHTML = document.referrer
+    $$('J_currenturl').innerHTML = window.location.href
+  </script>
+</body>
+
+</html>
