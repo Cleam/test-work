@@ -38,28 +38,26 @@
           clearInterval(ifTimer)
           var ifr = $('.bdgg-wrap').find('iframe')[0];
           ifr.addEventListener('load', function () {
-
-
             // console.log('ifr loaded!!!')
-            // var ifrDoc = ifr.contentDocument;
+            var ifrDoc = ifr.contentDocument;
             // console.log('bdgg iframe document: ', ifr.document);
             // console.log('bdgg iframe: ', ifrDoc);
             // console.log('百度广告DOM内容：', ifrDoc.getElementsByTagName("body"))
-            // alert('跨域获取iframe中DOM内容：' + ifrDoc.getElementsByTagName("body")[0].innerHTML)
-            // console.log('跨域获取iframe中DOM内容：', ifrDoc.getElementsByTagName("body")[0].innerHTML)
+            alert('跨域获取iframe中DOM内容：' + ifrDoc.getElementsByTagName("body")[0].innerHTML)
+            console.log('跨域获取iframe中DOM内容：', ifrDoc.getElementsByTagName("body")[0].innerHTML)
           });
         }
       }, 100)
     }());
-    // (function () {
-    //   var ifr = $('.custom-gg-wrap').find('iframe')[0];
-    //   ifr.addEventListener('load', function () {
-    //     // console.log('ifr loaded!!!')
-    //     var ifrDoc = ifr.contentDocument;
-    //     alert('非跨域获取iframe中DOM内容：' + ifrDoc.getElementsByTagName("body")[0].innerHTML)
-    //     console.log('非跨域获取iframe中DOM内容：', ifrDoc.getElementsByTagName("body")[0].innerHTML)
-    //   });
-    // }());
+    (function () {
+      var ifr = $('.custom-gg-wrap').find('iframe')[0];
+      ifr.addEventListener('load', function () {
+        // console.log('ifr loaded!!!')
+        var ifrDoc = ifr.contentDocument;
+        alert('非跨域获取iframe中DOM内容：' + ifrDoc.getElementsByTagName("body")[0].innerHTML)
+        console.log('非跨域获取iframe中DOM内容：', ifrDoc.getElementsByTagName("body")[0].innerHTML)
+      });
+    }());
   </script>
 </body>
 
