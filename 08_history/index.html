@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>History Test</title>
+  <script src="https://mini.eastday.com/toutiaoh5/js/common.min.js"></script>
+</head>
+
+<body>
+  <h1>微信返回按钮加日志测试...</h1>
+  <script>
+    try {
+      /* global wx */
+      if (GLOBAL.Browser && GLOBAL.Browser.wechat) {
+        GLOBAL.Util.getScript('https://res.wx.qq.com/open/js/jweixin-1.0.0.js', function () {
+          /**
+           * 请求后台config配置数据
+           * @return callback(data)
+           */
+          function init(callback) {
+            $.ajax({
+              url: 'https://wxapi.eastday.com/EastdayWeixin/getweixinsign',
+              data: {
+                url: encodeURIComponent(window.location.href.split('#')[0])
+              },
+              dataType: 'jsonp',
+              jsonp: 'jsonpcallback',
+              jsonpCallback: 'jsonp',
+              success: function (rst) {
+                if (rst) {
+                  callback && callback(rst); // jshint ignore:line
+                } else {
+                  console.warn('未获取到数据!');
+                }
+              }
+            });
+          }
+          function sendLog(cb) {
+            alert('Send Log...')
+            setTimeout(function () {
+              cb && cb()
+            }, 500);
+          }
+          // config接口注入权限验证配置
+          init(function (data) {
+            // 东方头条
+            // var appsecret = "6dae8f6b2fee5c28ce5455b37d1e33bc";
+            wx.config({
+              debug: false, // 开启调试模式
+              appId: 'wx1cb2b8bb5105ee07', // 必填，公众号的唯一标识
+              timestamp: data.timestamp, // 必填，生成签名的时间戳
+              nonceStr: data.noncestr, // 必填，生成签名的随机串
+              signature: data.signature, // 必填，签名，见附录1
+              jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'onMenuShareQQ'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            });
+          });
+          var wxReady = false;
+          wx.ready(function () {
+            wxReady = true;
+            // 获取网络类型
+            // wx.getNetworkType({
+            //   success: function (res) {
+            //     var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
+            //     console.log('networkType::', networkType)
+            //   }
+            // });
+            // 获取地理位置
+            // wx.getLocation({
+            //   type: 'wgs84', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+            //   success: function (res) {
+            //     var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+            //     var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+            //     var speed = res.speed; // 速度，以米/每秒计
+            //     var accuracy = res.accuracy; // 位置精度
+            //     console.log(latitude + ' - ' + longitude + ' - ' + speed + ' - ' + accuracy);
+            //   }
+            // });
+          });
+          history.pushState({ back: 1 }, '', '?back=1')
+          window.onpopstate = function (e) {
+            if (!event.state) {
+              sendLog(function () {
+                // 关闭当前页面
+                var t = setInterval(function () {
+                  if (wxReady) {
+                    clearInterval(t);
+                    wx.closeWindow();
+                  }
+                }, 20)
+              })
+            }
+          };
+        });
+      }
+    } catch (e) {
+      console.error(e);
+    }
+
+
+
+    // window.onpopstate = function (event) {
+    //   alert("location: " + document.location + ", state: " + JSON.stringify(event.state));
+    // };
+    //绑定事件处理函数. 
+    // history.pushState({ page: 1 }, "title 1", "?page=1");    //添加并激活一个历史记录条目 http://example.com/example.html?page=1,条目索引为1
+    // history.pushState({ page: 2 }, "title 2", "?page=2");    //添加并激活一个历史记录条目 http://example.com/example.html?page=2,条目索引为2
+    // history.replaceState({ page: 3 }, "title 3", "?page=3"); //修改当前激活的历史记录条目 http://ex..?page=2 变为 http://ex..?page=3,条目索引为3
+    // history.back(); // 弹出 "location: http://example.com/example.html?page=1, state: {"page":1}"
+    // history.back(); // 弹出 "location: http://example.com/example.html, state: null
+    // history.go(2);  // 弹出 "location: http://example.com/example.html?page=3, state: {"page":3}
+  </script>
+</body>
+
+</html>
