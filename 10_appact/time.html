@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>JS实现倒计时(天数,时,分,秒)</title>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/time.js"></script>
+</head>
+
+<body>
+
+  <h2>剩余时间:</h2>
+  <div class="countDown">
+    <small>20点开抢</small>
+    倒计时 :
+    <span id='hour'>00</span> :
+    <span id='minute'>00</span> :
+    <span id='second'>00</span>
+  </div>
+
+  <script language="javascript" type="text/javascript">
+    function ZgTimer(options) {
+      this.NOW_TIME = window.nowTime;
+      this.BEGIN_TIME = window.beginTime;
+      this.END_TIME = window.endTime;
+      this.UPDATE_SERVER_TIME = options.updateServerTime || 1000;
+      // http://testing.eastday.com/cleam/t/09_time/time.js
+      // http://h5act.dftoutiao.com/appact/songhongbao/time.js
+      this.serverTimeJs = options.serverTimeJs;  // 'js/time.js';
+      this.updateTime = options.updateTime;
+      this.finished = options.finished;
+      this.begin = options.begin;
+      this.t1 = null;
+      this.t2 = null;
+      this.t3 = null;
+      if (!this.serverTimeJs) {
+        alert('服务端同步时间js接口未添加！');
+        return;
+      }
+      this.init();
+    }
+
+    ZgTimer.prototype = {
+      constructor: ZgTimer,
+      init: function () {
+        var scope = this;
+        scope.t1 = setInterval(function () {
+          // 如果当前时间小于开始时间，开始倒计时。否则倒计时显示00:00:00
+          if (scope.NOW_TIME < scope.BEGIN_TIME) {
+            clearInterval(scope.t1);
+            scope.start();
+          }
+        }, 1000)
+      },
+      start: function () {
+        var scope = this;
+        scope.updateDomTime()
+        scope.t2 = setInterval(function () {
+          scope.updateDomTime();
+          if (scope.NOW_TIME >= scope.BEGIN_TIME) {
+            scope.begin();
+            setTimeout(function () {
+              clearInterval(scope.t2);
+              clearInterval(scope.t3);
+              scope.finished();
+            }, 30000)
+          }
+          // if (scope.NOW_TIME >= scope.END_TIME) {
+          //   clearInterval(scope.t2);
+          //   clearInterval(scope.t3);
+          //   scope.finished();
+          // }
+        }, 1000)
+        scope.t3 = setInterval(function () {
+          clearInterval(scope.t3);
+          scope.updateTimerFromServer();
+        }, scope.UPDATE_SERVER_TIME);
+      },
+      updateDomTime: function () {
+        var scope = this;
+        scope.NOW_TIME += 1000;
+        var disTime = scope.BEGIN_TIME - scope.NOW_TIME;
+        var hours = parseInt(disTime / 1000 / 60 / 60 % 24, 10); // 计算剩余的小时 
+        var minutes = parseInt(disTime / 1000 / 60 % 60, 10); // 计算剩余的分钟 
+        var seconds = parseInt(disTime / 1000 % 60, 10);  // 计算剩余的秒数 
+        hours = scope.checkTime(hours);
+        minutes = scope.checkTime(minutes);
+        seconds = scope.checkTime(seconds);
+        scope.updateTime(hours, minutes, seconds);
+      },
+
+      checkTime: function (i) { //将0-9的数字前面加上0，例1变为01 
+        if (i < 10) {
+          i = '0' + i;
+        }
+        return '' + i;
+      },
+
+      /**
+        * 动态加载js文件
+        * @param  {string}   url      js文件的url地址
+        * @param  {Function} callback 加载完成后的回调函数
+        */
+      getScript: function (url, callback, element) {
+        var head = document.getElementsByTagName('head')[0],
+          js = document.createElement('script');
+        js.setAttribute('type', 'text/javascript');
+        js.setAttribute('src', url);
+        if (element) {
+          element.appendChild(js);
+        } else {
+          head.appendChild(js);
+        }
+        //执行回调
+        var callbackFn = function () {
+          if (typeof callback === 'function') {
+            callback();
+          }
+        };
+        js.onload = function () {
+          callbackFn();
+          js.parentNode.removeChild(js);
+        };
+      },
+
+      updateTimerFromServer: function () {
+        var scope = this;
+        clearInterval(scope.t2)
+        scope.getScript(scope.serverTimeJs, function () {
+          scope.NOW_TIME = window.nowTime;  // window.serverNowTime;
+          scope.BEGIN_TIME = window.beginTime;  // window.serverBeginTime;
+          scope.END_TIME = window.endTime;  // window.serverEndTime;
+          if (scope.NOW_TIME < scope.BEGIN_TIME) {
+            scope.init();
+          } else {
+            scope.updateTime('00', '00', '00');
+          }
+        })
+      }
+    }
+
+    new ZgTimer({
+      // 更新服务端时间频率（单位：ms）
+      updateServerTime: 1000,   // 默认1000
+      serverTimeJs: 'http://h5act.dftoutiao.com/appact/songhongbao/time.js',
+      // 活动开始
+      begin: function () {
+        alert('活动开始！！！')
+      },
+      /**
+       * 倒计时 时间更新
+       * @param {string} h 时
+       * @param {string} m 分
+       * @param {string} s 秒
+       */
+      updateTime: function (h, m, s) {
+        $('#hour').html(h)
+        $('#minute').html(m)
+        $('#second').html(s)
+      },
+      /**
+       * 活动结束
+       */
+      finished: function () {
+        alert('活动结束！！！')
+        $('#hour').html('00')
+        $('#minute').html('00')
+        $('#second').html('00')
+      }
+    });
+
+    // var NOW_TIME = window.nowTime;
+    // var BEGIN_TIME = window.beginTime;
+    // var END_TIME = window.endTime;
+    // var UPDATE_SERVER_TIME = 1000;
+    // // http://testing.eastday.com/cleam/t/09_time/time.js
+    // // http://h5act.dftoutiao.com/appact/songhongbao/time.js
+    // var serverTimeJs = 'js/time.js';
+    // var t1, t2, t3, t4, disTime;
+
+    // function updateDomTime() {
+    //   NOW_TIME += 1000;
+    //   disTime = BEGIN_TIME - NOW_TIME;
+    //   var hours = parseInt(disTime / 1000 / 60 / 60 % 24, 10); // 计算剩余的小时 
+    //   var minutes = parseInt(disTime / 1000 / 60 % 60, 10); // 计算剩余的分钟 
+    //   var seconds = parseInt(disTime / 1000 % 60, 10);  // 计算剩余的秒数 
+    //   hours = checkTime(hours);
+    //   minutes = checkTime(minutes);
+    //   seconds = checkTime(seconds);
+    //   updateTime(hours, minutes, seconds);
+    // }
+
+    // function checkTime(i) { //将0-9的数字前面加上0，例1变为01 
+    //   if (i < 10) {
+    //     i = '0' + i;
+    //   }
+    //   return '' + i;
+    // }
+
+    // /**
+    //   * 动态加载js文件
+    //   * @param  {string}   url      js文件的url地址
+    //   * @param  {Function} callback 加载完成后的回调函数
+    //   */
+    // function getScript(url, callback, element) {
+    //   var head = document.getElementsByTagName('head')[0],
+    //     js = document.createElement('script');
+    //   js.setAttribute('type', 'text/javascript');
+    //   js.setAttribute('src', url);
+    //   if (element) {
+    //     element.appendChild(js);
+    //   } else {
+    //     head.appendChild(js);
+    //   }
+    //   //执行回调
+    //   var callbackFn = function () {
+    //     if (typeof callback === 'function') {
+    //       callback();
+    //     }
+    //   };
+    //   js.onload = function () {
+    //     callbackFn();
+    //     js.parentNode.removeChild(js);
+    //   };
+    // }
+
+    // function updateTimerFromServer() {
+    //   clearInterval(t2)
+    //   getScript(serverTimeJs, function () {
+    //     NOW_TIME = window.nowTime;  // window.serverNowTime;
+    //     BEGIN_TIME = window.beginTime;  // window.serverBeginTime;
+    //     END_TIME = window.endTime;  // window.serverEndTime;
+    //     if (NOW_TIME < BEGIN_TIME) {
+    //       init();
+    //     } else {
+    //       resetTime();
+    //     }
+    //   })
+    // }
+
+    // /**
+    //  * 更新倒计时
+    //  */
+    // function updateTime(hours, minutes, seconds) {
+    //   $("#timer").html(hours + " : " + minutes + " : " + seconds);
+    // }
+
+    // /**
+    //  * 活动结束
+    //  */
+    // function finished() {
+    //   updateTime('00', '00', '00');
+    // }
+
+    // function start() {
+    //   updateDomTime()
+    //   t2 = setInterval(function () {
+    //     updateDomTime();
+    //     if (NOW_TIME >= END_TIME) {
+    //       clearInterval(t2);
+    //       clearInterval(t3);
+    //       finished()
+    //     }
+    //   }, 1000)
+    //   t3 = setInterval(function () {
+    //     clearInterval(t3);
+    //     updateTimerFromServer();
+    //   }, UPDATE_SERVER_TIME);
+    // }
+
+    // function init() {
+    //   t1 = setInterval(function () {
+    //     // 如果当前时间小于开始时间，开始倒计时。否则倒计时显示00:00:00
+    //     if (NOW_TIME < BEGIN_TIME) {
+    //       clearInterval(t1);
+    //       start();
+    //     }
+    //   }, 1000)
+    // }
+    // init();
+  </script>
+</body>
+
+</html>

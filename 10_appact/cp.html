@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Test</title>
+</head>
+
+<body>
+  <script>
+    function RequireData(start, end) {
+      this.lock = true;
+      this.data = [];
+      this.starttime = start; // 开始时间
+      this.endtime = end; // 结束时间
+      this.init();
+    }
+    RequireData.prototype.init = function () {
+      var _this = this;
+      this.load();
+      this.doresult();
+      this.timer = setInterval(function () {
+        $.ajax({
+          type: 'GET',
+          url: '//h5act.dftoutiao.com/appact/songhongbao/enter.php?accid=111',
+          dataType: 'jsonp',
+          jsonp: 'jsonp',
+          jsonpCallback: 'callback',
+          success: function (res) {
+            var list = res.users;
+            _this.data = list;
+            _this.lock = false;
+          },
+          error: function () { },
+          complete: function () { }
+        });
+      }, 5000);
+    }
+    RequireData.prototype.load = function () {
+      var _this = this;
+      $.ajax({
+        type: 'GET',
+        url: 'http://h5act.dftoutiao.com/appact/songhongbao/enter.php?accid=111',
+        dataType: 'jsonp',
+        jsonp: 'jsonp',
+        jsonpCallback: 'callback',
+        success: function (res) {
+          var list = res.users;
+          _this.data = list;
+          _this.lock = false;
+        },
+        error: function () { },
+        complete: function () { }
+      });
+    }
+    RequireData.prototype.doresult = function () {
+      var _this = this;
+      var timer;
+      var timer = function () {
+        var arry = [600, 800, 1000, 1500, 1800, 2000];
+        var r = arry[parseInt(Math.random() * 6)];
+        var now = new Date().getTime();
+        var pz = (_this.start <= now && now < _this.endtime) ? '领取了红包' : '进入了房间';
+        pz == '领取了红包' ? r = 500 : '';
+        console.log(_this.start <= now && now < _this.endtime);
+        setTimeout(function () {
+          if (_this.lock || _this.data.length === 0) return;
+          var item = _this.data[0];
+          if (new Date().getTime() >= _this.endtime) {
+            clearInterval(_this.timer);
+            return;
+          }
+          $('#ulName').prepend('<li class="fadeInDown animated"><span>' + item.nick + '' + pz + '</span></li>');
+          _this.data.shift();
+          timer();
+        }, r)
+      }
+      timer();
+    }
+    var xcp = new RequireData(1546080000480, 1546080001480);
+  </script>
+</body>
+
+</html>

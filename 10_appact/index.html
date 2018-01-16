@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <!-- 编码 -->
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <!-- 兼容模式方案：IE以最高级模式渲染文档；使用Chrome Frame渲染。 -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- H5页面窗口自动调整到设备宽度，并禁止用户缩放页面 -->
+  <meta content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no" name="viewport">
+  <!-- 当网站添加到主屏幕快速启动方式，可隐藏地址栏，仅针对ios的safari (ios7.0版本以后，safari上已看不到效果) -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <!-- 将网站添加到主屏幕快速启动方式，仅针对ios的safari顶端状态条的样式 (可选default、black、black-translucent) -->
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <!-- 忽略将页面中的数字识别为电话号码 -->
+  <meta name="format-detection" content="telephone=no">
+  <!-- 忽略Android平台中对邮箱地址的识别 -->
+  <meta name="format-detection" content="email=no">
+  <!-- 作者 -->
+  <meta name="author" content="Cleam Lee">
+  <!-- 关键词 -->
+  <meta name="keywords" content="关键词">
+  <!-- 描述信息 -->
+  <meta name="description" content="描述信息">
+  <!-- dns预解析 -->
+  <link rel="dns-prefetch" href="//mini.eastday.com/" />
+  <!-- favicon -->
+  <link rel="shortcut icon" href="//mini.eastday.com/toutiaoh5/img/favicon.ico" />
+  <link rel="bookmark" href="//mini.eastday.com/toutiaoh5/img/favicon.ico" type="image/x-icon" />
+  <link rel="apple-touch-icon-precomposed" href="//mini.eastday.com/toutiaoh5/img/favicon.ico">
+  <!-- 标题 -->
+  <title>20点抢红包</title>
+  <!-- 动态更新html字体大小（使用rem为单位时） -->
+  <!-- 样式文件 -->
+  <meta name="hotcss" content="design-width=750">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/redPocket.css">
+  <link rel="stylesheet" href="css/animate.css">
+  <script src="js/responsive.js"></script>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/entry.js" type="text/javascript"></script>
+  <script src="js/totalmoney.js"></script>
+  <script src="js/superAlert.js"></script>
+  <script src="http://kp.dftoutiao.com/public/ttapp.js"></script>
+  <!-- <script src="http://kp.dftoutiao.com/actjs/randomhost.js"></script> -->
+  <script src="js/time.js" type="text/javascript"></script>
+  <!-- <script src="http://h5act.dftoutiao.com/appact/songhongbao/time.js" type="text/javascript"></script> -->
+  <!--     <script src="http://h5act.dftoutiao.com/sact/songhongbao/utl.js"></script> -->
+
+</head>
+
+<body>
+  <div class="container" id='page1' style='background:#ffe1b9;'>
+    <div class="box">
+      <div id="openRule"></div>
+      <div class="countDown">
+        <small>20点开抢</small>
+        倒计时 :
+        <span id='hour'>00</span> :
+        <span id='minute'>00</span> :
+        <span id='second'>00</span>
+      </div>
+      <img src="img/page1_02.png" alt="" class="bg-img">
+      <span id='money'>
+        <img src="img/tab0.png" alt="" id="tab-img">
+        <div class='text1'>瓜分&nbsp;
+          <strong id='totalmoney'>----</strong>&nbsp;元</div>
+        <!-- <div class='text2' id='text2'>新用户进入房间,红包池涨1元</div> -->
+      </span>
+
+      <dl id='me'>
+        <dt>
+          <img src="img/headImg.png" class="headImg" id='headImg'>
+        </dt>
+        <dd>
+          <img src="img/arrow.png" class="arrow">
+          <span>哇! 我领了288元!</span>
+          <img src="img/face.png" class="face">
+        </dd>
+      </dl>
+
+      <ul id='ulName'></ul>
+
+      <!-- 分享按钮 -->
+      <img src="img/shareEnlarge.png" id="shareEnlarge">
+    </div>
+  </div>
+  <section id="model"></section>
+  <div id="sec">
+    <img src="img/page3_03.png" alt="" id='open'>
+    <img src="img/page3_02.png" alt="" id='closeSec'>
+    <div id="content">
+      <p class='p1'>东方头条</p>
+      <p class='p2'>给你发了一个红包</p>
+      <p class='p3'>恭喜发财,大吉大利!</p>
+    </div>
+    <a href="javascript:;" id='cross'>查看领取详情></a>
+  </div>
+  <div class="sjtc">
+    <div class="tt">
+      <p>升级到最新版本</p>
+      <h4>才可以参与本次活动</h4>
+    </div>
+    <div class="btnnn">
+      <div class="sj">去升级</div>
+    </div>
+  </div>
+  <div id="rule">
+    <img src="img/rule_02.png" alt="" id='closeRule'>
+    <div class="contentRule">
+      <p>1、活动限东方头条用户参加，每位用户每天仅有
+        <span>1次</span>参加机会。</p>
+      <p>2、每有一名新用户进入页面，红包奖金池增加
+        <span>1元</span>。</p>
+      <p>3、获得的现金可在
+        <span>“我的”</span>-
+        <span>“钱包”</span>内进行查看和体现，活动期间，到账会有延时，请耐心等待。</p>
+      <p>4、活动结束时间以东方头条官方信息为准，活动的最终解释权归东方头条所有。</p>
+    </div>
+  </div>
+  <script type="text/javascript" src="//res.cdn.openinstall.io/openinstall.js"></script>
+  <script>
+
+    function webViewDidLoad() {
+      // console.log('每次执行');
+      location.reload();
+    }
+
+    // var nowTime = new Date().getTime();
+    // // 获取活动开始时间
+    // var beginTime = new Date(2018,0,16,9,32,0).getTime();
+    // // 获取活动结束时间
+    // var endTime = new Date(2018,0,16,9,35,10).getTime();
+
+    var diff = new Date().getTime() - nowTime;
+    var nowTime = nowTime + diff;
+
+    var clientinfo = {};
+    var userinfo = {};
+    var inviteCode = null;
+    var head = '';
+    var name = '';
+    var money = '';
+
+    $.ttapp.userinfo(function (ret) {
+      userinfo = ret;
+      if (ret.Accid <= 0) {
+        entry();
+        $('#login_pxh').click(function () {
+          $.ttapp.login();
+        })
+        return false;
+      } else {
+        inviteCode = ret.Accid.toString();
+        inviteCode = yingshe(inviteCode);
+        head = ret.Image;
+        name = ret.Nick;
+
+
+        $.ttapp.clientinfo(function (ret) {
+          clientinfo = ret;
+        });
+
+        var ttt = nowTime;
+        if (ttt < beginTime) {
+          totalmoney();
+        }
+        var totalmoneyTimer = setInterval(function () {
+          var countDown = (+Date.now()) + diff;
+          ttt += 5000;
+          if (ttt < beginTime) {
+            totalmoney();
+          } else {
+            clearInterval(totalmoneyTimer);
+          }
+        }, 5000);
+
+        $.ajax({
+          url: 'http://h5act2.dftoutiao.com/appact/songhongbao/enter.php?accid=' + ret.Accid,
+          dataType: 'jsonp',
+          jsonpCallback: 'callback',
+          success: function (res) {
+            var total = res.total; // 总人数
+            $('#totalmoney').text(total);
+          }
+        });
+
+
+        // 倒计时js
+        var timer1 = setInterval(function () {
+          // var inviteCode = userinfo.Accid.toString();
+          // inviteCode = yingshe(inviteCode);
+          // $('#inviteCode').text(inviteCode);
+
+          var nicks = [];
+          $.ajax({
+            url: 'http://h5act2.dftoutiao.com/appact/songhongbao/enter.php?accid=' + ret.Accid,
+            dataType: 'jsonp',
+            jsonpCallback: 'callback',
+            success: function (res) {
+              // console.log(res);
+              var status = res.status;      // 状态一般为0
+              var hasTaken = res.hasTaken;  // 红包是否已经点击
+              var users = res.users;        // 进入房间或领取红包的用户
+              var winner = res.winnerof288; // 用户头像
+              var total = res.total; // 总钱数
+              if (status == "0") {
+                // console.log(res);
+                // 处理获取的数据
+                // $('#money strong').text(total);
+                $('#headImg').attr('src', winner); // 头像
+                for (var i = 0; i < users.length; i++) {
+                  nicks.push(users[i].nick);
+                }
+
+                nowTime = nowTime + 1000;
+                // console.log(nowTime , beginTime , endTime);
+
+                if (nowTime < beginTime) {
+                  var s = parseInt((beginTime - nowTime) / 1000);
+                  var d = fillZero(parseInt(s / 86400));
+                  s %= 86400;
+                  var h = fillZero(parseInt(s / 3600));
+                  s %= 3600;
+                  var m = fillZero(parseInt(s / 60));
+                  var s = fillZero(s % 60);
+                  $('#hour').text(h);
+                  $('#minute').text(m);
+                  $('#second').text(s);
+                  $('#tab-img').attr('src', 'img/tab0.png');
+                  $('#ulName').removeClass('endShow');
+                  checkIn(nicks);
+                  $('#money').unbind('click');
+                  $('#money').on('click', function (event) {
+                    alert('活动时间未到');
+                  });
+                } else if (beginTime <= nowTime && nowTime < endTime) {
+                  $('#hour').text('00');
+                  $('#minute').text('00');
+                  $('#second').text('00');
+                  if (hasTaken == 0) {
+                    $('#tab-img').attr('src', 'img/tab1.png');
+                  } else {
+                    $('#tab-img').attr('src', 'img/tab0.png');
+                  }
+                  $('#money').unbind('click');
+                  $('#money').on('click', function (event) {
+                    if (hasTaken == 1 && getCookie('j')) {
+                      window.location.href = "6.html?j=" + getCookie('j');
+                    } else {
+                      $('#model').show();
+                      $('#sec').show();
+                    }
+                  });
+                  $('#ulName').removeClass('endShow');
+                  checkOut(nicks);
+                  $('#totalmoney').text(total);
+                } else if (nowTime >= endTime) {
+                  $('#hour').text('00');
+                  $('#minute').text('00');
+                  $('#second').text('00');
+                  $('#totalmoney').text(total);
+                  $('#money').unbind('click');
+                  $('#money').on('click', function (event) {
+                    if (hasTaken == 1 && getCookie('j')) {
+                      window.location.href = "6.html?j=" + getCookie('j');
+                    } else {
+                      // alert('手慢了红包已抢完');
+                      $('#model').show();
+                      $('#sec').show();
+                      $('#cross').attr('href', '6.html?j=-1');
+                      $('#cross').show();
+                      $('#open').hide();
+                      $('#content p').eq(1).text('');
+                      $('#content p').eq(2).text('手慢了，红包已抢完');
+                    }
+                  });
+                  $('#tab-img').attr('src', 'img/tab0.png');
+                  $('#me').show();
+                  $('#ulName').addClass('endShow');
+                  checkOut(nicks);
+                  clearInterval(timer1);
+                }
+              }
+            }
+          });
+        }, 5000);
+
+
+
+        // 点击红包打开
+        $('#open').bind('click', function (event) {
+          $.ajax({
+            url: 'http://h5act.dftoutiao.com/appact/songhongbao/take.php',
+            dataType: 'jsonp',
+            jsonpCallback: 'callback',
+            data: {
+              accid: userinfo.Accid,
+              nick: userinfo.Nick,
+              i: clientinfo.IMEI ? clientinfo.IMEI : PARAM_EMPTY,
+              o: (clientinfo.OEM && clientinfo.Plantform) ? (clientinfo.OEM + (clientinfo.Plantform == "android" ? "Android" : "IOS")) : PARAM_EMPTY,
+              q: clientinfo.QidWithTime ? clientinfo.QidWithTime : (clientinfo.Qid ? clientinfo.Qid : PARAM_EMPTY),
+              v: clientinfo.Version ? clientinfo.Version : PARAM_EMPTY,
+              m: clientinfo.Machine ? clientinfo.Machine : PARAM_EMPTY,
+              p: clientinfo.Plantform ? clientinfo.Plantform : PARAM_EMPTY,
+            },
+            success: function (res) {
+              var status = res.status;    // 状态
+              var msg = res.msg;          // 消息
+              if (status == '0') {
+                var m = res.m;              // 钱
+                setCookie('j', m);
+                window.location.href = "6.html?j=" + m;
+              } else {
+                $('#open').hide();
+                $('#content p').eq(1).text('');
+                $('#content p').eq(2).text(msg);
+              }
+            },
+            error: function () {
+              // console.log('跨域请求失败了');
+              return false;
+            }
+          });
+          report('click2');
+        });
+
+      }
+
+      //点击分享扩大奖金池
+      $('#shareEnlarge').click(function () {
+        // var inviteCode = userinfo.Accid.toString();
+        // inviteCode = yingshe(inviteCode);
+        // $('#inviteCode').text(inviteCode);
+
+        var j = $('#money strong').text();
+        $.ttapp.share({
+          // shareUrl: 'http://'+ ACT_RANDOM_HOST[parseInt(Math.random()*ACT_RANDOM_HOST.length)] +'/qianghongbao/outside1?f=93014+&u='+inviteCode,
+          shareUrl: 'https://test-kp.dftoutiao.com/qianghongbao/outside1?f=93014&u=' + inviteCode + '&j=' + j + '&head=' + head + '&name=' + name,
+          shareTitle: '东方头条发钱啦！昨天68098人瓜分了100000元，每日20点准时开抢',               //分享标题
+          shareDes: '每个新用户进入头条红包池就涨一元，人越多钱越多！',            //分享描述
+          shareImg: 'http://resources.dftoutiao.com/songheng/toutiao/shb/share/shb2_share_logo.png'  //分享图片
+        });
+        report('click1');
+      });
+
+
+      //上报统计
+      function report(type) {
+        const PARAM_EMPTY = 'null';
+        var statisData = {
+          'uid': clientinfo.IMEI ? clientinfo.IMEI : PARAM_EMPTY,
+          'from': 'app',
+          'softname': (clientinfo.OEM && clientinfo.Plantform)
+            ? (clientinfo.OEM + (clientinfo.Plantform == "android" ? "Android" : "IOS"))
+            : PARAM_EMPTY,
+          'appqid': clientinfo.QidWithTime ? clientinfo.QidWithTime : (clientinfo.Qid ? clientinfo.Qid : PARAM_EMPTY),
+          'ttaccid': userinfo.Accid ? userinfo.Accid : PARAM_EMPTY,
+          'thisurl': location.href,
+          'actentryid': 'null',
+          'actid': 'robredpack',
+          'materialid': 'https://kp.dftoutiao.com/shb_in/img/title.png',
+          'type': type,
+          'loginid': userinfo.Accid ? userinfo.Accid : PARAM_EMPTY,
+          'softtype': 'toutiao',
+          'apptypeid': clientinfo.OEM ? clientinfo.OEM : PARAM_EMPTY,
+          'ver': clientinfo.Version ? clientinfo.Version : PARAM_EMPTY,
+          'os': clientinfo.Plantform ? clientinfo.Plantform : PARAM_EMPTY,
+          'deviceid': clientinfo.IMEI ? clientinfo.IMEI : PARAM_EMPTY
+        }
+
+        $.ajax({
+          async: false,
+          url: '//stinvi.dftoutiao.com/appstatistics/appact',
+          data: statisData,
+          type: 'GET',
+          dataType: 'jsonp',
+          jsonp: 'jsonpcallback',
+          timeout: 5000,
+          success: function (response) {
+            // console.log(response);
+          }
+        });
+      }
+      report('show');
+    });
+
+
+    function is_android() {
+      var u = navigator.userAgent;
+      var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+      return isAndroid;
+    }
+
+
+    $('#closeSec').on('click', function () {
+      $('#model').hide();
+      $('#sec').hide();
+    });
+
+    $('#openRule').click(function () {
+      $('#model,#rule').show();
+
+      $("#model").queue(function () {
+        $(this).dequeue();
+      });
+      $("#rule").queue(function () {
+        $(this).dequeue();
+      });
+    });
+
+
+    $('#closeRule').click(function () {
+      $('#model,#rule').hide();
+
+      $("#model").queue(function () {
+        $(this).dequeue();
+      });
+      $("#rule").queue(function () {
+        $(this).dequeue();
+      });
+    });
+
+
+    checkIn();
+
+
+    // 获取奖金池初始值
+    function totalmoney() {
+      $.ajax({
+        url: 'http://h5act.dftoutiao.com/appact/songhongbao/totalmoney.php',
+        dataType: 'jsonp',
+        jsonpCallback: 'cb',
+        success: function (res) {
+          if (res.totalmoney) {
+            var dataTo = parseInt(res.totalmoney);
+            var dataFrom = parseInt(getCookie('dataFrom') < dataTo ? getCookie('dataFrom') : (res.totalmoney - 1));
+            setCookie('dataFrom', dataTo);
+            if (dataFrom >= dataTo) {
+              $('#totalmoney').html('<span class="timer" id="count-number" data-from="' + res.totalmoney + '" data-to="' + res.totalmoney + '" data-speed="5000" ></span>');
+            } else {
+              $('#totalmoney').html('<span class="timer" id="count-number" data-from="' + dataFrom + '" data-to="' + dataTo + '" data-speed="5000" ></span>');
+            }
+            $('.timer').each(count);
+          }
+        }
+      });
+    }
+
+
+    function checkIn(arr) {
+      if (arr) {
+        var checkInName = arr;
+      } else {
+        var checkInName = ['爱你', '怀仁+苏贵', '？？？', '274230767', '华夏传媒', '浅笑着'];
+      }
+
+      var checkInStr = '';
+      for (var i = 0; i < checkInName.length; i++) {
+        checkInStr += '<li><span>' + checkInName[i] + '进入了房间</span></li>';
+      }
+      $('#ulName').html(checkInStr);
+    };
+
+    function checkOut(arr) {
+      if (arr) {
+        var checkOutName = arr;
+      } else {
+        var checkOutName = ['', '曦默', '紫丁香的味道', '战神', '连连', '星宇'];
+      }
+      var checkOutStr = '';
+      for (var i = 0; i < checkOutName.length; i++) {
+        checkOutStr += '<li><span>' + checkOutName[i] + '领取了<small>红包</small></span></li>';
+      }
+      $('#ulName').html(checkOutStr);
+    }
+
+
+    function fillZero(n) {
+      return n < 10 ? '0' + n : n;
+    };
+
+
+    function setCookie(name, value) {
+      var Days = 30;
+      var exp = new Date();
+      exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+      document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString();
+    }
+
+    function getCookie(name) {
+      var arr, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
+      if (arr = document.cookie.match(reg))
+        return unescape(arr[2]);
+      else
+        return null;
+    }
+
+    function delCookie(name) {
+      var exp = new Date();
+      exp.setTime(exp.getTime() - 1);
+      var cval = getCookie(name);
+      if (cval != null)
+        document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString();
+    }
+
+
+    function yingshe(string) {
+      var arr = [];
+      for (var i = 0; i < string.length; i++) {
+        switch (string[i]) {
+          case '0':
+            arr.push('7');
+            break;
+          case '1':
+            arr.push('4');
+            break;
+          case '2':
+            arr.push('8');
+            break;
+          case '3':
+            arr.push('2');
+            break;
+          case '4':
+            arr.push('5');
+            break;
+          case '5':
+            arr.push('1');
+            break;
+          case '6':
+            arr.push('9');
+            break;
+          case '7':
+            arr.push('3');
+            break;
+          case '8':
+            arr.push('0');
+            break;
+          case '9':
+            arr.push('6');
+            break;
+          default:
+            return false;
+        }
+      }
+      return arr.join('');
+    };
+
+
+  </script>
+</body>
+
+</html>
