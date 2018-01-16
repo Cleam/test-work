@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Test</title>
+  <script src="http://mini.eastday.com/toutiaoh5/js/common.min.js"></script>
+</head>
+
+<body>
+  <script>
+    // 缓存用户id（365天）
+    GLOBAL.Et.uid = Cookies.get('user_id');
+    if (!GLOBAL.Et.uid) {
+      GLOBAL.Et.uid = (+new Date()) + Math.random().toString(10).substring(2, 6);
+      Cookies.set('user_id', GLOBAL.Et.uid, { expires: 365, path: '/', domain: 'eastday.com' });
+    }
+
+    // 缓存PV
+    (function() {
+      var pv = Cookies.get(GLOBAL.Et.uid) || 0
+      Cookies.set(GLOBAL.Et.uid, Number(pv) + 1, {
+        expires: 365, path: '/', domain: 'eastday.com'
+      })
+    }())
+
+    if(Cookies.get(GLOBAL.Et.uid) > 20){
+      // 拿第3套广告ID
+    } else if(Cookies.get(GLOBAL.Et.uid) > 10){
+      // 拿第2套广告ID
+    } else {
+      // 拿第1套广告ID (也就是默认广告ID)
+    }
+
+
+  </script>
+</body>
+
+</html>
