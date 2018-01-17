@@ -41,7 +41,7 @@
   var appDownloadBtnDownId = '';
 
   /* 参数 */
-  var pageNum = 10; // 每次请求的评论数量
+  var pageNum = 10;
   var ttaccid = GLOBAL.Util.getQueryString('ttaccid') || '';
   var appqid = GLOBAL.Util.getQueryString('appqid') || '';
   var ver = GLOBAL.Util.getQueryString('ver') || '';
@@ -105,15 +105,15 @@
         url: scope.hotNewsUrl,
         data: {
           htps: isHttps ? '1' : '0',
-          type: GLOBAL.Et.newsType, // 新闻类别
-          qid: GLOBAL.Et.qid, // 渠道
-          uid: ime || GLOBAL.Et.uid, // 用户ID
-          newsnum: newsNum, // 新闻数量 默认10条
-          ishot: GLOBAL.Util.getQueryString('ishot') || 'null', // 是否是热点新闻
-          recommendtype: GLOBAL.Util.getQueryString('recommendtype') || 'null', // 推荐新闻的类别
-          url: GLOBAL.Util.getUrlNoParams(), // 当前新闻的url（纯净的url）
-          os: GLOBAL.Util.getOsType(), // 操作系统
-          pgnum: scope.pageNum // 当前请求第几页数据
+          type: GLOBAL.Et.newsType,
+          qid: GLOBAL.Et.qid,
+          uid: ime || GLOBAL.Et.uid,
+          newsnum: newsNum,
+          ishot: GLOBAL.Util.getQueryString('ishot') || 'null',
+          recommendtype: GLOBAL.Util.getQueryString('recommendtype') || 'null',
+          url: GLOBAL.Util.getUrlNoParams(),
+          os: GLOBAL.Util.getOsType(),
+          pgnum: scope.pageNum
         },
         dataType: 'jsonp',
         timeout: 8000,
@@ -125,7 +125,6 @@
           var data = rst ? rst.data : '';
           var kws = rst ? rst.kwds : '';
           scope.startKey = rst.endkey || '';
-          // 加载赞踩按钮
           if (GLOBAL.Et.voteQids.contains(GLOBAL.Et.qid)) {
             if (scope.pageNum === 1) {
               scope.generateVoteDom(rst);
@@ -216,10 +215,8 @@
           }
         }
 
-        // 类别处理
-        if (titledisplay) { // 新处理方式
+        if (titledisplay) {
           titledisplay = titledisplay.toString();
-          // titledisplay = '00000100';
           var isZd = Number(titledisplay.charAt(titledisplay.length - 1)); // 是否是置顶
           var isHot = Number(titledisplay.charAt(titledisplay.length - 2)); // 是否是热门
           var isRec = Number(titledisplay.charAt(titledisplay.length - 3)); // 是否是推荐
@@ -445,19 +442,17 @@
       if (!gg) {
         return;
       }
-      var alliance = gg.type || 'baidu'; // 联盟
+      var alliance = gg.type || 'baidu';
       var len = $hnList.children().length;
-      var ggId = gg.id; // 广告ID
+      var ggId = gg.id;
       if (ggId) {
-        alliance = alliance.toLowerCase(); // 防止联盟标识出现大写的情况
+        alliance = alliance.toLowerCase();
         if (pos) {
           if (pos >= len) {
             pos = len - 1;
           }
-          // 针对给定位置的广告
           $hnList.children().eq(pos).after('<section class="gg-item news-gg-img3"><div id="' + ggId + '"></div><div class="line"></div></section>');
         } else {
-          // 针对直接追加到后面的广告
           $hnList.append('<section class="gg-item news-gg-img3"><div id="' + ggId + '"></div><div class="line"></div></section>');
         }
         GLOBAL.Util.getScript('//tt123.eastday.com/' + ggId + '.js', function () { }, $('#' + ggId)[0]);
@@ -584,7 +579,6 @@
           '</a>',
           '</section>'
         ].join(''));
-        // 单图
       } else if (adStyle === 'one') {
         $ggDom.append([
           '<section class="news-item news-img1">',
@@ -607,14 +601,9 @@
   function Partner() {
     this.mygg = GLOBAL.Et.gg.my;
     this.dspUrl = 'http://106.75.98.65/partner/detail';
-    // this.dspUrl = 'https://softwordsdetail.dftoutiao.com/partner/detail';
   }
   Partner.prototype = {
     constructor: Partner,
-    /**
-     * 初始化方法
-     * @return {[type]} [description]
-     */
     init: function () {
       var scope = this;
       scope.loadTopGg(scope.mygg.top);
@@ -630,7 +619,7 @@
         data: {
           type: GLOBAL.Et.newsType,
           qid: GLOBAL.Et.qid,
-          uid: GLOBAL.Et.uid, // 用户ID
+          uid: GLOBAL.Et.uid,
           os: GLOBAL.Util.getOsType(),
           thisurl: GLOBAL.Util.getUrlNoParams(),
           adnum: 1,
@@ -644,7 +633,7 @@
           imei: GLOBAL.Util.getQueryString('ime') || 'null',
           browser_type: GLOBAL.Util.getBrowserType() || 'null',
           pixel: window.screen.width + '*' + window.screen.height,
-          fr_url: GLOBAL.Util.getUrlNoParams() || 'null', // 内页是当前url
+          fr_url: GLOBAL.Util.getUrlNoParams() || 'null',
           apptypeid: GLOBAL.Util.getQueryString('apptypeid') || 'null',
           appver: GLOBAL.Util.getQueryString('appver') || 'null',
           ver: GLOBAL.Util.getQueryString('ver') || 'null',
@@ -677,12 +666,12 @@
         data: {
           type: GLOBAL.Et.newsType,
           qid: GLOBAL.Et.qid,
-          uid: GLOBAL.Et.uid, // 用户ID
+          uid: GLOBAL.Et.uid,
           os: GLOBAL.Util.getOsType(),
           thisurl: GLOBAL.Util.getUrlNoParams(),
           adnum: 2,
           pgnum: -6,
-          adtype: 3, // 1：大图 2：单图 3：三图
+          adtype: 3,
           dspver: '1.0.1',
           softtype: 'news',
           softname: 'eastday_wapnews',
@@ -752,11 +741,6 @@
       $inList.append('<span style="color:#fff;padding:2px 4px;font-size:12px;position:absolute;right:2px;top:6px;background:rgba(0,0,0,0.3);display:block;">广告</span>');
     },
 
-    /**
-     * 将dsp数据组装成html代码
-     * @param  {[type]} d 广告数据
-     * @return {[type]}      [description]
-     */
     generateDsp: function (d, position) {
       var url = d.url;
       var topic = d.topic;
@@ -807,7 +791,6 @@
           '</a>',
           '</section>'
         ].join('');
-        // 单图
       } else if (adStyle === 'one') {
         dataStr = [
           '<section class="news-item news-img1">',
@@ -839,12 +822,8 @@
       }
     },
 
-    /**
-     * 获取DSP广告(正文下方、six下方三宫格)
-     */
     getDspForArtThree: function () {
       var scope = this;
-      // 存储dspIndex Cookie
       try {
         if (!Cookies.get('DFTT_DSP_INDEX')) {
           Cookies.set('DFTT_DSP_INDEX', dspIndex, {
@@ -901,9 +880,6 @@
       });
     },
 
-    /**
-     * 加载DSP广告(正文下方、six下方三宫格)
-     */
     loadDspForArtThree: function (dspData) {
       var scope = this;
       var data = (dspData && dspData.data) || null;
@@ -933,19 +909,12 @@
       }
     },
 
-    /**
-     * 加载six下方广告
-     */
     loadThreeAfterSix: function (gg) {
       var ggId = (gg && gg.id) || 'jr3a1ece97f0c2f13fdb14798aafed22e01be7dc172fe630fb51322bda'; // 广告ID
       $hotNews.append('<section class="gg-item news-gg-img3"><div id="' + ggId + '"></div></section>');
       GLOBAL.Util.getScript('//tt123.eastday.com/' + ggId + '.js', function () { }, $('#' + ggId)[0]);
     },
 
-    /**
-     * 加载正文下方广告
-     * @param  {[type]} [description]
-     */
     loadArticleDown: function (gg) {
       if (!gg) {
         return;
@@ -963,10 +932,6 @@
       }
     },
 
-    /**
-     * 加载标题上方广告
-     * @param  {[type]} [description]
-     */
     loadTopGg: function (gg) {
       var scope = this;
       if (!gg) {
@@ -988,22 +953,17 @@
       }
     },
 
-    /**
-     * 加载猜你喜欢新闻（目前是广告）
-     * @return {undefined}
-     */
     loadSix: function (gg) {
       if (!gg) {
         return;
       }
-      var alliance = gg.type; // 联盟
-      var ggId = gg.id; // 广告ID
-      var isEmpty = gg.isempty; // 判断广告是否为空
+      var alliance = gg.type;
+      var ggId = gg.id;
+      var isEmpty = gg.isempty;
       if (isEmpty) {
         return;
       }
       var scope = this;
-      // 分类标题
       $interestNews.append('<div class="section-title in-title"><h2><span></span>猜你喜欢<span class="line"></span></h2></div>').append($inList);
       if (ggId) {
         scope.getDspForSix(function () {
@@ -1014,22 +974,18 @@
       }
     },
 
-    /**
-     * 加载图加广告
-     * @return {[type]} [description]
-     */
     loadTujia: function (gg) {
       if (!gg) {
         return;
       }
-      var ggId = gg.id; // 广告ID
-      var alliance = gg.type; // 联盟
+      var ggId = gg.id;
+      var alliance = gg.type;
       var isEmpty = gg.isempty;
       if (isEmpty) {
         return;
       }
       if (ggId) {
-        alliance = alliance.toLowerCase(); // 防止联盟标识出现大写的情况
+        alliance = alliance.toLowerCase();
         document.write('<scr' + 'ipt>var baiduImagePlus = {imgContainerId:"J_article",maxAdCount: 999, unionId:"' + ggId + '"};</scr' + 'ipt>');
         document.write('<scr' + 'ipt src="//tt123.eastday.com/cpro/ui/mi.js" async></scr' + 'ipt>');
       }
@@ -1037,7 +993,6 @@
   };
 
   function PhotoView() { }
-
   PhotoView.prototype = {
     constructor: PhotoView,
     init: function (gallerySelector) {
@@ -1047,7 +1002,6 @@
       var getFigureNodes = function (nodes) {
         var figureNodes = [];
         if (nodes && nodes.length > 0) {
-          // 排除无效DOM节点
           for (var i = 0; i < nodes.length; i++) {
             var tn = nodes[i].tagName;
             if (tn && tn.toUpperCase() === 'FIGURE') {
@@ -1252,10 +1206,7 @@
 
   (function () {
     var partner = new Partner();
-    // 无广告情况
-    if (!GLOBAL.Et.gg.my.nogg) {
-      partner.init();
-    }
+    partner.init();
   }());
 
   $(function () {
