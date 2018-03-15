@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DeviceMotion</title>
+  <script src="https://cdn.bootcss.com/zepto/1.2.0/zepto.min.js"></script>
+  <style>
+    html,
+    body {
+      width: 100%;
+    }
+
+    body {
+      margin: 0;
+      padding: 10px 5px;
+    }
+
+    ul {
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    ul,
+    li {
+      list-style: none;
+    }
+  </style>
+</head>
+
+<body>
+  <ul id="list"></ul>
+
+  <script>
+    var i = 0;
+    window.addEventListener('devicemotion', handleDevicemotion, false);
+    function handleDevicemotion() {
+      if (i++ >= 10) {
+        window.removeEventListener('devicemotion', handleDevicemotion, false);
+      }
+      var x = event.accelerationIncludingGravity.x;
+      var y = event.accelerationIncludingGravity.y;
+      var z = event.accelerationIncludingGravity.z;
+      $('#list').append('<li>【' + i + '】' + x + '，' + y + '，' + z + '</li>')
+    }
+  </script>
+</body>
+
+</html>
