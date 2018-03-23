@@ -15,7 +15,7 @@
 
 <body>
   <p>收到消息：<span id="J_msg"></span></p>
-  <h1>我下面有个iframe页面（红框内）</h1>
+  <h3>我下面有个iframe页面（红框内）</h3>
   <iframe id="J_ifr" src="//mini.eastday.com/toutiaoh5/__test/ifr.html" frameborder="0" scrolling="no" width="100%"></iframe>
   <script>
     function $$(id) {
@@ -23,8 +23,9 @@
     }
     window.addEventListener('message', function (evt) {
       var receiveMsg = evt.data;
+      // console.log('收到消息：' + receiveMsg);
       $$('J_msg').innerHTML = receiveMsg;
-      $$('J_ifr').style.height = receiveMsg.split(',')[1] + 'px';
+      $$('J_ifr').style.height = receiveMsg + 'px';
     })
   </script>
 </body>

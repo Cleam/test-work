@@ -28,21 +28,28 @@
     <span id="J_height">auto</span>
   </p>
   <p>发送的消息：
-    <span id="J_msg">null</span>
+    <span id="J_msg"></span>
   </p>
   <div id="J_block" class="block"></div>
   <script>
     function $$(id) {
       return document.getElementById(id);
     }
+    function getClientHeight() {
+      if (document.body.clientHeight && document.documentElement.clientHeight) {
+        return (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+      } else {
+        return (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+      }
+    }
     function changeHeight() {
       var rh = Math.floor(Math.random() * 1000);
-      console.log('随机高度：', rh);
       $$('J_block').style.height = rh + 'px';
-      $$('J_height').innerHTML = document.body.scrollHeight
+      $$('J_height').innerHTML = getClientHeight()
+      // console.log('随机高度：', rh);
     }
     function sendMsg() {
-      var msg = document.body.scrollWidth + ',' + document.body.scrollHeight
+      var msg = getClientHeight()
       $$('J_msg').innerHTML = msg;
       parent.postMessage(msg, '*');
     }
