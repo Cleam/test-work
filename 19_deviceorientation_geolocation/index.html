@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>deviceorientation and geolocation</title>
+  <link href="https://cdn.bootcss.com/normalize/8.0.0/normalize.min.css" rel="stylesheet">
+  <style>
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+
+    #app {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 15px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    li {
+      line-height: 1.5em;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <h2>监测设备方向和获取用户位置信息</h2>
+    <h3>1、设备方向（旋转角度）：</h3>
+    <ul>
+      <li>X轴(beta:-180~180)：
+        <span id="x"></span>
+      </li>
+      <li>Y轴(gamma:-90~90)：
+        <span id="y"></span>
+      </li>
+      <li>Z轴(alpha:0~360)：
+        <span id="z"></span>
+      </li>
+      <!-- <li>absolute(如果方向数据跟地球坐标系和设备坐标系有差异，则absolute为true，如果方向数据由设备本身的坐标系提供，则absolute为false。)：
+        <span id="absolute"></span>
+      </li> -->
+    </ul>
+    <h3>2、位置信息：</h3>
+    <ul>
+      <li>经度：
+        <span id="longitude"></span>
+      </li>
+      <li>纬度：
+        <span id="latitude"></span>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    function $$(id) {
+      return document.getElementById(id);
+    }
+    window.addEventListener("deviceorientation", handleOrientation, true);
+
+    function handleOrientation(orientData) {
+      var absolute = orientData.absolute;
+      var alpha = orientData.alpha;
+      var beta = orientData.beta;
+      var gamma = orientData.gamma;
+      $$('x').innerHTML = Number(beta).toFixed(2);
+      $$('y').innerHTML = Number(gamma).toFixed(2);
+      $$('z').innerHTML = Number(alpha).toFixed(2);
+      // $$('absolute').innerHTML = absolute;
+      // Do stuff with the new orientation data
+    }
+
+    ;
+    (function () {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          function (position) {
+            var longitude = position.coords.longitude;
+            var latitude = position.coords.latitude;
+            // console.log(longitude)
+            // console.log(latitude)
+            $$('longitude').innerHTML = longitude
+            $$('latitude').innerHTML = latitude
+          },
+          function (e) {
+            var msg = e.code;
+            var dd = e.message;
+            // console.log(msg)
+            // console.log(dd)
+            $$('longitude').innerHTML = 'null'
+            $$('latitude').innerHTML = 'null'
+          }
+        )
+      } else {
+        $$('longitude').innerHTML = 'null'
+        $$('latitude').innerHTML = 'null'
+      }
+    }())
+  </script>
+</body>
+
+</html>
