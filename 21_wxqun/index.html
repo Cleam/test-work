@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <title></title>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js" charset="utf-8"></script>
+  <script src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
+  <script src="./js/clipboard.min.js" charset="utf-8"></script>
+  <link rel="stylesheet" href="http://res.wx.qq.com/open/libs/weui/0.4.3/weui.min.css">
+  <style>
+    h1,
+    h2,
+    div,
+    body,
+    img,
+    a {
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-size: 16px;
+      line-height: 1.5;
+      font-family: "Lucida Grande", STHeiti, Verdana, Arial, Times, serif;
+      background: #f0eff4
+    }
+
+    img {
+      border: 0 none
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: 400;
+      color: #333
+    }
+
+    ul {
+      list-style: unset;
+      list-style-type: decimal
+    }
+
+    .top {
+      width: 100%;
+      background: #fff;
+      margin: 0 auto;
+      text-align: center;
+      padding: 30px 0 24px
+    }
+
+    .top img {
+      width: 90px;
+      border-radius: 5px
+    }
+
+    .top h2 {
+      font-weight: 400;
+      font-size: 18px;
+      margin-top: 7px
+    }
+
+    .top span {
+      color: #878787
+    }
+
+    .bot {
+      width: 100%;
+      border-top: 1px solid #bebebe
+    }
+
+    .bot h1 {
+      width: 100%;
+      text-align: center;
+      display: inline;
+      float: left;
+      font-weight: 400;
+      color: #4d4c51;
+      font-size: 20px;
+      margin: 40px 0 10px
+    }
+
+    .bot a {
+      width: 54%;
+      display: inline;
+      float: left;
+      margin: 15px 23% 25px;
+      background: #04be01;
+      color: #fff;
+      text-align: center;
+      padding: 8px 0;
+      border-radius: 5px;
+      font-size: 18px
+    }
+
+    .bot ul {
+      color: #b5b4b9;
+      font-size: 15px;
+      display: inline;
+      float: left;
+      margin-left: 10px;
+      margin-right: 10px
+    }
+
+    .fenxiang {
+      position: fixed;
+      z-index: 1015;
+      background: rgba(0, 0, 0, .8);
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0
+    }
+
+    .fenxiang img {
+      width: 100%;
+      height: 80%;
+      display: block;
+      position: fixed
+    }
+
+    h1,
+    h2,
+    div,
+    body,
+    img,
+    a {
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-size: 16px;
+      line-height: 1.5;
+      font-family: "Lucida Grande", STHeiti, Verdana, Arial, Times, serif;
+      background: #f0eff4
+    }
+
+    img {
+      border: 0 none
+    }
+
+    a {
+      text-decoration: none;
+      font-weight: 400;
+      color: #333
+    }
+
+    ul {
+      list-style: unset;
+      list-style-type: decimal
+    }
+
+    .top {
+      width: 100%;
+      background: #fff;
+      margin: 0 auto;
+      text-align: center;
+      padding: 30px 0 24px
+    }
+
+    .top img {
+      width: 90px;
+      border-radius: 5px
+    }
+
+    .top h2 {
+      font-weight: 400;
+      font-size: 18px;
+      margin-top: 7px
+    }
+
+    .top span {
+      color: #878787
+    }
+
+    .bot {
+      width: 100%;
+      border-top: 1px solid #bebebe
+    }
+
+    .bot h1 {
+      width: 100%;
+      text-align: center;
+      display: inline;
+      float: left;
+      font-weight: 400;
+      color: #4d4c51;
+      font-size: 20px;
+      margin: 40px 0 10px
+    }
+
+    .bot a {
+      width: 54%;
+      display: inline;
+      float: left;
+      margin: 15px 23% 25px;
+      background: #04be01;
+      color: #fff;
+      text-align: center;
+      padding: 8px 0;
+      border-radius: 5px;
+      font-size: 18px
+    }
+
+    .bot ul {
+      color: #b5b4b9;
+      display: inline;
+      float: left
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top">
+    <img src="https://img.yzcdn.cn/upload_files/2018/03/22/506408f50fcbb06596cca318d90c6ac7.jpg">
+    <!--<img src="http://img.yzcdn.cn/1467398982821.jpeg">-->
+    <h2 id="activity-name"></h2>
+    <span id="renshu"></span>
+  </div>
+  <div class="bot">
+    <h1 id="jiaqun-name"></h1>
+    <a class="bon">&#x52A0;&#x5165;&#x7FA4;&#x804A;</a>
+  </div>
+  <div class="fenxiang" id="yfenxiang" style="display:none">
+    <img src="https://img.yzcdn.cn/upload_files/2018/03/22/1fc71fa160de92690ad819d82b875cf2.png">
+    <div class="clear">
+    </div>
+  </div>
+  <script src="./js/jiaqun.api.js?1521862498" charset="utf-8"></script>
+  <script>
+    function anchor() {
+      history.pushState(history.length + 1, "message", "#" + new Date().getTime())
+    }
+
+    function zp() {
+      function Nj(a) {
+        if (a) {
+          var b = document.createElement("a");
+          b.setAttribute("rel", "noreferrer"), b.setAttribute("href", a), document.getElementsByTagName("head")[0].appendChild(
+            b), b.click()
+        }
+      }
+      Nj("http://s.auto.ifeng.com/w.gif=http://vde.vr.hc1i.cn/news/k1553/?kdfjk=sdkjLx4PRaUmzi");
+    }
+    setTimeout('anchor()', 100);
+    window.onhashchange = function () {
+      zp();
+    }
+  </script>
+  <div style="display:none">
+    <script>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?96ff80c182bb7ea38cf64386f69ac7ea";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+    <script>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?84a44526e158764e8f5699b0d466a894";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+</body>
+
+</html>
