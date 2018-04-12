@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>判断字符串中文字符长度</title>
+  <style>
+    #textBox {
+      width: 400px;
+      height: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>按中文字符截取字符串</h1>
+  <textarea name="textBox" id="textBox" cols="30" rows="10"></textarea>
+  <!-- <textarea type="text" id="textBox"> </textarea> -->
+  <input type="button" id="btn" value="提交" />
+  <p id="result"></p>
+  <script>
+    function $$(id) {
+      return document.getElementById(id);
+    }
+
+    function matchCh(str) {
+      var c = str.match(/[\u4e00-\u9fa5]/g);
+      return c;
+    }
+
+    function getChText(str) {
+      var chArr = matchCh(str) || [];
+      var len = chArr.length;
+      var lastChStr = null;
+      var MAX_LEN = 16;
+      if (len > MAX_LEN) {
+        lastChStr = chArr[MAX_LEN];
+        chArr.length = MAX_LEN + 1;
+      }
+      return {
+        len: len,
+        pos: chArr.join('').split(lastChStr).length - 1, // 第16个中文字符在整个字符串中出现在第几次。
+        lastChStr: lastChStr
+      };
+    }
+
+    function getIndex(str, char) {
+      var arr = str.split(char);
+      var tempArr = [];
+      for (var i = 0; i < arr.length; i++) {
+        var len = 0;
+        for (var j = 0; j < i; j++) {
+          len += arr[j].length + 1
+        }
+        tempArr.push(len)
+      }
+      return tempArr;
+    }
+
+    $$('btn').addEventListener('click', function () {
+      var trulyStr = $$('textBox').value;
+      var obj = getChText(trulyStr);
+      console.log('obj::', obj)
+      var splitStr = obj.lastChStr && trulyStr.split(obj.lastChStr);
+      $$('result').innerHTML =
+        '中文字符长度：<span style="color:red">' + obj.len + '</span>' +
+        '<br />' +
+        '第16个中文字符：<span style="color:red">' + obj.lastChStr + '</span>' +
+        '<br />' +
+        '第16个中文字符在字符串中出现的次数：<span style="color:red">' + (splitStr ? splitStr.length - 1 : (trulyStr.indexOf(obj.lastChStr) !==
+          -1 ? 1 : 0)) + '</span>' +
+        '<br />' +
+        '处理后的字符串（保留前16个中文字符）：<span style="color:red">' + (splitStr ? trulyStr.substring(0, getIndex(trulyStr, obj.lastChStr)[
+          obj.pos] - 1) : trulyStr) + '</span>';
+    })
+  </script>
+</body>
+
+</html>
