@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>test rotate</title>
+  <style>
+    .rotate {
+      width: 200px;
+      height: 200px;
+      background-color: yellow;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="r" class="rotate">点我</div>
+
+  <script>
+    var div = document.getElementById('r');
+    r.onclick = function () {
+      var _this = this;
+      this.style.webkitTransition = 'transform 5s ease-out';
+      this.style.transition = 'transform 5s ease-out';
+      this.style.webkitTransform = 'rotate(1800deg)';
+      this.style.transform = 'rotate(1800deg)';
+      setTimeout(function () {
+        _this.style.transition = null;
+        _this.style.transform = null;
+      }, 5100)
+    }
+  </script>
+</body>
+
+</html>
